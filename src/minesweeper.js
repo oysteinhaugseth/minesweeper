@@ -1,9 +1,24 @@
+/*jshint esversion: 6 */
 class Board {
   constructor(numberOfRows, numberOfColumns, numberOfBombs) {
     this._numberOfBombs = numberOfBombs;
     this._numberOfTiles = (numberOfRows * numberOfColumns);
     this._playerBoard = Board.generatePlayerBoard(numberOfRows, numberOfColumns);
     this._bombBoard = Board.generateBombBoard(numberOfRows, numberOfColumns, numberOfBombs);
+  }
+  get playerBoard() {
+    return this._playerBoard;
+  }
+  flipTile = (rowIndex, columnIndex) => {
+    if(this._playerBoard[rowIndex][columnIndex] !== ' ') {
+      console.log('This tile has already been flipped!');
+      return;
+    } else if (this._bombBoard[rowIndex][columnIndex] === 'B') {
+      playerBoard[rowIndex][columnIndex] = 'B';
+    } else {
+      playerBoard[rowIndex][columnIndex] = this.getNumberOfNeighborBombs(rowIndex, columnIndex);
+  }
+    this._numberOfTiles--;
   }
 }
 
@@ -81,18 +96,6 @@ const generateBombBoard = (numberOfRows, numberOfColumns, numberOfBombs) => {
       });
       return numberOfBombs;
     };
-
-    // fliptile
-    const flipTile = (playerBoard, bombBoard, rowIndex, columnIndex) => {
-      if(playerBoard[rowIndex][columnIndex] !== ' ') {
-        console.log('This tile has already been flipped!');
-        return;
-      } else if (bombBoard[rowIndex][columnIndex] === 'B') {
-        playerBoard[rowIndex][columnIndex] = 'B';
-      } else {
-        playerBoard[rowIndex][columnIndex] = getNumberOfNeighborBombs(bombBoard, rowIndex, columnIndex);
-    }
-  };
 
 // board and bomb settings
 let playerBoard = generatePlayerBoard(3, 4);

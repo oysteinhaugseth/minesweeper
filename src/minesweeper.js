@@ -1,4 +1,24 @@
 /*jshint esversion: 6 */
+class Game {
+  constructor(numberOfRows, numberOfColumns, numberOfBombs) {
+    this._board = new Board(numberOfRows, numberOfColumns, numberOfBombs);
+  }
+  playMove(rowIndex, columnIndex) {
+    this._board.flipTile(rowIndex, columnIndex);
+      if(this._board.playerBoard[rowIndex][columnIndex] === 'B') {
+        console.log('Game over!');
+        this._board.print();
+      }
+      else if (this._board.playerBoard[rowIndex][columnIndex] !== ' ') {
+        console.log('You won!');
+      }
+      else {
+        console.log('Current board: ');
+        this._board.print();
+      }
+  }
+
+
 class Board {
   constructor(numberOfRows, numberOfColumns, numberOfBombs) {
     this._numberOfBombs = numberOfBombs;
@@ -66,17 +86,15 @@ class Board {
     }
     return board;
   }
-
-// dynamically generated bomb board
-const generateBombBoard = (numberOfRows, numberOfColumns, numberOfBombs) => {
-  let board = [];
-  for (let i = 0; i < numberOfRows; i++) {
-    let row = [];
-    for (let j = 0; j < numberOfColumns; j++) {
-      row.push(null);
+  static generateBombBoard (numberOfRows, numberOfColumns, numberOfBombs) {
+    let board = [];
+    for (let i = 0; i < numberOfRows; i++) {
+      let row = [];
+      for (let j = 0; j < numberOfColumns; j++) {
+        row.push(null);
+      }
+      board.push(row);
     }
-    board.push(row);
-  }
 
   let numberOfBombsPlaced = 0;
   while (numberOfBombsPlaced < numberOfBombs) {
@@ -89,18 +107,11 @@ const generateBombBoard = (numberOfRows, numberOfColumns, numberOfBombs) => {
     }
   }
   return board;
-};
+  }
+}
+
+
 
 // board and bomb settings
-let playerBoard = generatePlayerBoard(3, 4);
-let bombBoard = generateBombBoard(3, 4, 5);
-
-// print boards to console
-console.log('Player Board: ');
-printBoard(playerBoard);
-console.log('Bomb Board: ');
-printBoard(bombBoard);
-
-flipTile(playerBoard, bombBoard, 0, 0);
-console.log('Updated Player Board: ')
-printBoard(playerBoard);
+const g = new Game(3, 3, 3);
+g.playMove(0, 0);

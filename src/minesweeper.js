@@ -13,9 +13,11 @@ class Board {
     if(this._playerBoard[rowIndex][columnIndex] !== ' ') {
       console.log('This tile has already been flipped!');
       return;
-    } else if (this._bombBoard[rowIndex][columnIndex] === 'B') {
+    }
+    else if (this._bombBoard[rowIndex][columnIndex] === 'B') {
         this.playerBoard[rowIndex][columnIndex] = 'B';
-    } else {
+    }
+    else {
         this.playerBoard[rowIndex][columnIndex] = this.getNumberOfNeighborBombs(rowIndex, columnIndex);
     }
     this._numberOfTiles--;
@@ -48,30 +50,22 @@ class Board {
     return numberOfBombs;
   }
   hasSafeTiles() {
-      return this._numberOfTiles !== this._numberOfBombs;
-    }
+    return this._numberOfTiles !== this._numberOfBombs;
   }
-
-
-
-
-// print board function
- print(board) {
-  console.log(this._board.map(row => row.join(' | ')).join('\n'));
-};
-
-// dynamically generated player board
-const generatePlayerBoard = (numberOfRows, numberOfColumns) => {
-  let board = [];
-  for (let i = 0; i < numberOfRows; i++) {
-    let row = [];
-    for (let j = 0; j < numberOfColumns; j++) {
-      row.push(' ');
-    };
-    board.push(row);
-  };
-  return board;
-}
+   print(board) {
+     console.log(this._board.map(row => row.join(' | ')).join('\n'));
+  }
+  static generatePlayerBoard(numberOfRows, numberOfColumns) {
+    let board = [];
+    for (let i = 0; i < numberOfRows; i++) {
+      let row = [];
+      for (let j = 0; j < numberOfColumns; j++) {
+        row.push(' ');
+      }
+      board.push(row);
+    }
+    return board;
+  }
 
 // dynamically generated bomb board
 const generateBombBoard = (numberOfRows, numberOfColumns, numberOfBombs) => {
@@ -80,7 +74,7 @@ const generateBombBoard = (numberOfRows, numberOfColumns, numberOfBombs) => {
     let row = [];
     for (let j = 0; j < numberOfColumns; j++) {
       row.push(null);
-    };
+    }
     board.push(row);
   }
 

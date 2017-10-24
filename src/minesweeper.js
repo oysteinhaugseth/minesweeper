@@ -56,8 +56,8 @@ class Board {
 
 
 // print board function
-const printBoard = board => {
-  console.log(board.map(row => row.join(' | ')).join('\n'));
+ print(board) {
+  console.log(this._board.map(row => row.join(' | ')).join('\n'));
 };
 
 // dynamically generated player board
